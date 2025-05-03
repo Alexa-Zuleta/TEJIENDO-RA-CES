@@ -1,124 +1,907 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tejiendo Raíces</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <title>Tejiendo Raíces | Arte que transforma vidas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            margin: 0;
-            font-family: 'Playfair Display', serif;
-            background-color: #fdf9f3;
-            color: #333;
-            display: flex;
-            height: 100vh;
+        :root {
+            --color-bg: #f8f5f0;
+            --color-text: #333333;
+            --color-primary: #b19cd9;
+            --color-secondary: #6d6875;
+            --color-accent: #e0b1cb;
+            --color-dark: #2d2d2d;
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
-        nav {
-            background-color: #000;
-            width: 250px;
-            padding: 20px;
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 700;
+            color: var(--color-dark);
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+        }
+        
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--color-secondary);
+            transition: var(--transition);
+        }
+        
+        a:hover {
+            color: var(--color-primary);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            background-color: var(--color-primary);
+            position: fixed;
+            top: 0;
+            left: -280px;
+            z-index: 1000;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-        nav img {
-            width: 120px;
-            margin-bottom: 30px;
-        }
-        nav a {
-            color: #fdf9f3;
-            text-decoration: none;
-            margin: 15px 0;
-            font-size: 18px;
-        }
-        main {
-            flex: 1;
-            padding: 40px;
+            padding: 2rem 0;
             overflow-y: auto;
         }
-        h1, h2 {
-            color: #6c4aa7;
+        
+        .sidebar.active {
+            left: 0;
         }
-        .productos {
+        
+        .sidebar-logo {
+            width: 200px;
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar-nav {
+            width: 100%;
+            list-style: none;
+        }
+        
+        .sidebar-nav li {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-nav a {
+            color: white;
+            font-size: 1.2rem;
+            display: block;
+            transition: var(--transition);
+        }
+        
+        .sidebar-nav a:hover {
+            transform: translateX(10px);
+        }
+        
+        .sidebar-social {
+            margin-top: auto;
+            padding: 1rem;
+        }
+        
+        .sidebar-social a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+        }
+        
+        /* Main Content */
+        .main-content {
+            transition: var(--transition);
+            width: 100%;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header */
+        header {
+            padding: 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            max-width: 180px;
+        }
+        
+        .menu-toggle {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--color-dark);
+            cursor: pointer;
+            z-index: 1001;
+            transition: var(--transition);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(rgba(248, 245, 240, 0.8), rgba(248, 245, 240, 0.8)), url('images/bg-pattern.png');
+            background-size: cover;
+            padding: 2rem;
+        }
+        
+        .hero h1 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero p {
+            max-width: 600px;
+            margin-bottom: 2rem;
+            font-size: 1.3rem;
+        }
+        
+        .btn {
+            padding: 0.8rem 2rem;
+            background-color: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        .btn:hover {
+            background-color: var(--color-secondary);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-subtitle {
+            display: block;
+            color: var(--color-primary);
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* About Section */
+        .about-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
-        .producto {
-            background: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        
+        .about-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .about-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .about-card h3 {
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Products Section */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            font-weight: 600;
+            color: var(--color-secondary);
+        }
+        
+        /* Impact Section */
+        .impact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .impact-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
             text-align: center;
         }
-        .producto img {
-            max-width: 100%;
-            border-radius: 8px;
+        
+        .impact-icon {
+            font-size: 2.5rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
         }
+        
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-right: 1rem;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--color-primary);
+            border-radius: 5px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
         footer {
-            margin-top: 40px;
+            background-color: var(--color-dark);
+            color: white;
+            padding: 3rem 0;
             text-align: center;
-            font-size: 14px;
-            color: #888;
+        }
+        
+        .footer-logo {
+            width: 150px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-nav {
+            margin: 1.5rem 0;
+        }
+        
+        .footer-nav a {
+            color: white;
+            margin: 0 1rem;
+        }
+        
+        .footer-social a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+        }
+        
+        .footer-copy {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Modal de productos */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1500;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            max-width: 80%;
+            width: 800px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: white;
+            text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        
+        .modal-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .modal-img {
+            height: 500px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .modal-details {
+            padding: 2rem;
+        }
+        
+        .modal-title {
+            margin-bottom: 1rem;
+        }
+        
+        .modal-price {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-description {
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-action {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .modal-body {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-img {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section {
+                padding: 3rem 0;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <img src="images/logo.png" alt="Tejiendo Raíces" class="sidebar-logo">
+        <ul class="sidebar-nav">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#quienes-somos">Quiénes Somos</a></li>
+            <li><a href="#productos">Productos</a></li>
+            <li><a href="#impacto">Impacto Social</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <div class="sidebar-social">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </div>
 
-<nav>
-    <img src=https://correousbcaliedu-my.sharepoint.com/:i:/g/personal/ayzuletao_correo_usbcali_edu_co/EUriyZ2f1NBAiJ5MKRDzUNoB8g4WFT3Teb9FYsJIeJiVgg?e=f91jpy alt="Tejiendo Raíces">
-    <a href="#inicio">Inicio</a>
-    <a href="#quienes">Quiénes somos</a>
-    <a href="#productos">Productos</a>
-    <a href="#impacto">Impacto Social</a>
-    <a href="#contacto">Contacto</a>
-</nav>
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        <!-- Header -->
+        <header>
+            <img src="images/logo.png" alt="Tejiendo Raíces" class="logo">
+            <button class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
 
-<main>
-    <section id="inicio">
-        <h1>Bienvenido a Tejiendo Raíces</h1>
-        <p>Moda artesanal hecha con amor, pasión y propósito.</p>
-    </section>
+        <!-- Hero Section -->
+        <section class="hero" id="inicio">
+            <h1>Tejiendo Raíces</h1>
+            <p>"Cada puntada teje una historia de tradición, pasión y transformación social"</p>
+            <a href="#productos" class="btn">Descubrir productos</a>
+        </section>
 
-    <section id="quienes">
-        <h2>Quiénes Somos</h2>
-        <p>Tejiendo Raíces es un emprendimiento de tejidos a crochet que busca generar empleo para personas de bajos recursos en Cali, mientras conecta las tradiciones ancestrales con las tendencias actuales.</p>
-    </section>
-
-    <section id="productos">
-        <h2>Productos</h2>
-        <div class="productos">
-            <div class="producto">
-                <img src=C:\Users\Alexa\OneDrive - Universidad de San Buenaventura Cali\Proceso Admon\Canva Personal\tejiendo_raices_site.zip\images=TJJydP alt="Top tejido">
-                <p>Top tejido a mano</p>
+        <!-- About Section -->
+        <section class="section" id="quienes-somos">
+            <div class="container">
+                <div class="section-title">
+                    <span class="section-subtitle">Conoce nuestra esencia</span>
+                    <h2>Quiénes Somos</h2>
+                </div>
+                <div class="about-content">
+                    <div class="about-card">
+                        <h3>Misión</h3>
+                        <p>Crear prendas y accesorios artesanales de alta calidad, mientras generamos empleo digno y promovemos el arte del crochet como un vehículo de transformación social.</p>
+                    </div>
+                    <div class="about-card">
+                        <h3>Visión</h3>
+                        <p>Ser el emprendimiento líder en prendas de crochet en Colombia para 2030, reconocidos por la calidad, innovación y nuestro impacto social.</p>
+                    </div>
+                    <div class="about-card">
+                        <h3>Propuesta de Valor</h3>
+                        <p>Cada puntada teje una historia de tradición, pasión y transformación social. Nuestros productos combinan tradición artesanal con diseño contemporáneo, creados por mujeres artesanas de comunidades vulnerables en Cali.</p>
+                    </div>
+                </div>
             </div>
-            <div class="producto">
-                <img src=C:\Users\Alexa\OneDrive - Universidad de San Buenaventura Cali\Proceso Admon\Canva Personal\tejiendo_raices_site.zip\images=lygtJG alt="Bolso tejido">
-                <p>Bolso artesanal</p>
+        </section>
+
+        <!-- Products Section -->
+        <section class="section" id="productos">
+            <div class="container">
+                <div class="section-title">
+                    <span class="section-subtitle">Nuestras creaciones</span>
+                    <h2>Productos</h2>
+                </div>
+                <div class="products-grid">
+                    <div class="product-card" data-product="1">
+                        <img src="images/sombrero_crochet.jpg" alt="Sombrero Crochet" class="product-img">
+                        <div class="product-info">
+                            <h3>Sombrero Artesanal</h3>
+                            <p>Sombrero tejido a mano con hilo de algodón 100% natural</p>
+                            <p class="product-price">$85.000 COP</p>
+                        </div>
+                    </div>
+                    <div class="product-card" data-product="2">
+                        <img src="images/top_crochet.jpg" alt="Top Crochet" class="product-img">
+                        <div class="product-info">
+                            <h3>Top Bohemio</h3>
+                            <p>Top tejido en crochet con diseño bohemio y acabados premium</p>
+                            <p class="product-price">$110.000 COP</p>
+                        </div>
+                    </div>
+                    <div class="product-card" data-product="3">
+                        <img src="images/bolso_crochet.jpg" alt="Bolso Crochet" class="product-img">
+                        <div class="product-info">
+                            <h3>Bolso Artesanal</h3>
+                            <p>Bolso tejido a mano con asas de cuero y forro interior</p>
+                            <p class="product-price">$95.000 COP</p>
+                        </div>
+                    </div>
+                    <div class="product-card" data-product="4">
+                        <img src="images/producto4.jpg" alt="Vestido Crochet" class="product-img">
+                        <div class="product-info">
+                            <h3>Vestido Primavera</h3>
+                            <p>Vestido largo con detalles en crochet, perfecto para ocasiones especiales</p>
+                            <p class="product-price">$175.000 COP</p>
+                        </div>
+                    </div>
+                    <div class="product-card" data-product="5">
+                        <img src="images/producto5.jpg" alt="Amigurumi" class="product-img">
+                        <div class="product-info">
+                            <h3>Amigurumi Decorativo</h3>
+                            <p>Muñeco tejido decorativo para el hogar</p>
+                            <p class="product-price">$45.000 COP</p>
+                        </div>
+                    </div>
+                    <div class="product-card" data-product="6">
+                        <img src="images/producto6.jpg" alt="Chaleco Crochet" class="product-img">
+                        <div class="product-info">
+                            <h3>Chaleco Tejido</h3>
+                            <p>Chaleco tejido con diseño contemporáneo y colores vibrantes</p>
+                            <p class="product-price">$120.000 COP</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="producto">
-                <img src=C:\Users\Alexa\OneDrive - Universidad de San Buenaventura Cali\Proceso Admon\Canva Personal\tejiendo_raices_site.zip\images=3pshOw alt="Sombrero tejido">
-                <p>Sombrero de verano</p>
+        </section>
+
+        <!-- Impact Section -->
+        <section class="section" id="impacto">
+            <div class="container">
+                <div class="section-title">
+                    <span class="section-subtitle">Nuestro compromiso</span>
+                    <h2>Impacto Social</h2>
+                </div>
+                <div class="impact-content">
+                    <div class="impact-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Club de Tejedoras</h3>
+                        <p>Formamos y capacitamos a mujeres de comunidades vulnerables en el arte del crochet, creando espacios de aprendizaje y crecimiento.</p>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3>Generación de Empleo</h3>
+                        <p>Proporcionamos empleos dignos y flexibles a artesanas locales, mejorando su calidad de vida y la de sus familias.</p>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Sostenibilidad</h3>
+                        <p>Utilizamos materiales sostenibles y prácticas responsables con el medio ambiente en todos nuestros procesos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section" id="contacto">
+            <div class="container">
+                <div class="section-title">
+                    <span class="section-subtitle">Conéctate con nosotros</span>
+                    <h2>Contacto</h2>
+                </div>
+                <div class="contact-content">
+                    <div>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <p>Cali, Colombia</p>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <p>contacto@tejiendoraices.co</p>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <p>+57 XXX XXX XXXX</p>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fab fa-instagram"></i>
+                                </div>
+                                <p>@tejiendoraices</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <form class="contact-form">
+                            <input type="text" placeholder="Nombre completo" required>
+                            <input type="email" placeholder="Correo electrónico" required>
+                            <input type="tel" placeholder="Teléfono">
+                            <textarea placeholder="Mensaje"></textarea>
+                            <button type="submit" class="btn">Enviar mensaje</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <img src="images/logo-white.png" alt="Tejiendo Raíces" class="footer-logo">
+                <div class="footer-nav">
+                    <a href="#inicio">Inicio</a>
+                    <a href="#quienes-somos">Quiénes Somos</a>
+                    <a href="#productos">Productos</a>
+                    <a href="#impacto">Impacto Social</a>
+                    <a href="#contacto">Contacto</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                <p class="footer-copy">&copy; 2025 Tejiendo Raíces. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <span class="modal-close" id="modal-close">&times;</span>
+            <div class="modal-body">
+                <img src="" alt="" class="modal-img" id="modal-img">
+                <div class="modal-details">
+                    <h2 class="modal-title" id="modal-title"></h2>
+                    <p class="modal-price" id="modal-price"></p>
+                    <div class="modal-description" id="modal-description"></div>
+                    <div class="modal-action">
+                        <button class="btn">Comprar ahora</button>
+                        <button class="btn" style="background-color: var(--color-secondary);">Agregar al carrito</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section id="impacto">
-        <h2>Impacto Social</h2>
-        <p>Apoyamos a mujeres tejedoras creando oportunidades de crecimiento económico y empoderamiento personal. Únete a nuestro Club de Tejedoras Raíces.</p>
-    </section>
-
-    <section id="contacto">
-        <h2>Contacto</h2>
-        <p>¿Quieres saber más? Escríbenos a <strong>contacto@tejiendoraices.com</strong>.</p>
-    </section>
-
-    <footer>
-        © 2025 Tejiendo Raíces. Todos los derechos reservados.
-    </footer>
-</main>
-
+    <script>
+        // Toggle Sidebar Menu
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('main-content');
+        
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+        
+        // Close sidebar when clicking on a link
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+            });
+        });
+        
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && e.target !== menuToggle && !menuToggle.contains(e.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+        
+        // Product Modal
+        const modal = document.getElementById('product-modal');
+        const modalClose = document.getElementById('modal-close');
+        const productCards = document.querySelectorAll('.product-card');
+        
+        const modalImg = document.getElementById('modal-img');
+        const modalTitle = document.getElementById('modal-title');
+        const modalPrice = document.getElementById('modal-price');
+        const modalDescription = document.getElementById('modal-description');
+        
+        // Product data
+        const products = {
+            1: {
+                title: "Sombrero Artesanal",
+                price: "$85.000 COP",
+                img: "images/sombrero_crochet.jpg",
+                description: `
+                    <p>Este hermoso sombrero tejido a mano es perfecto para protegerte del sol con estilo. Elaborado con hilos de algodón 100% naturales y teñidos con tintes ecológicos.</p>
+                    <p>Características:</p>
+                    <ul>
+                        <li>Material: Hilo de algodón premium</li>
+                        <li>Talla: Única (ajustable)</li>
+                        <li>Disponible en varios colores</li>
+                        <li>Tiempo de elaboración: 8 horas</li>
+                    </ul>
+                    <p>Cada pieza es única y puede presentar variaciones sutiles que destacan su carácter artesanal.</p>
+                `
+            },
+            2: {
+                title: "Top Bohemio",
+                price: "$110.000 COP",
+                img: "images/top_crochet.jpg",
+                description: `
+                    <p>Este top bohemio tejido a mano es una pieza versátil que puedes combinar en múltiples ocasiones. Su diseño único y acabados premium lo convierten en un básico de guardarropa con carácter artesanal.</p>
+                    <p>Características:</p>
+                    <ul>
+                        <li>Material: Hilo de algodón mercerizado</li>
+                        <li>Tallas disponibles: S, M, L</li>
+                        <li>Colores: Blanco, Negro, Beige, Lavanda</li>
+                        <li>Tiempo de elaboración: 12 horas</li>
+                    </ul>
+                    <p>Cuidados: Lavado a mano con agua fría y secado plano para conservar su forma original.</p>
+                `
+            },
+            3: {
+                title: "Bolso Artesanal",
+                price: "$95.000 COP",
+                img: "images/bolso_crochet.jpg",
+                description: `
+                    <p>Este bolso artesanal combina la tradición del tejido crochet con un diseño contemporáneo perfecto para cualquier ocasión. Su espacio interior y resistencia lo hacen práctico y duradero.</p>
+                    <p>Características:</p>
+                    <ul>
+                        <li>Material: Hilo de algodón con asas de cuero</li>
+                        <li>Dimensiones: 35 x 30 x 10 cm</li>
+                        <li>Forro interior con bolsillo</li>
+                        <li>Tiempo de elaboración: 15 horas</li>
+                    </ul>
+                    <p>Cada bolso está firmado por la artesana que lo elaboró como garantía de autenticidad.</p>
+                `
+            },
+            4: {
+                title: "Vestido Primavera",
+                price: "$175.000 COP",
+                img: "images/producto4.jpg",
+                description: `
+                    <p>Este elegante vestido combina delicados detalles en crochet con tela fluida, creando una prenda perfecta para ocasiones especiales. Su diseño único resalta la feminidad y elegancia.</p>
+                    <p>Características:</p>
+                    <ul>
+                        <li>Material: Combinación de hilo de algodón y tela de lino</li>
+                        <li>Tallas disponibles: S, M, L</li>
+                        <li>Colores: Blanco, Beige, Lavanda</li>
+                        <li>Tiempo de elaboración: 22 horas</li>
+                    </ul>
+                    <p>Incluye etiqueta con la historia de la artesana que lo creó.</p>
+                `
+            },
+            5: {
+                title: "Amigurumi Decorativo",
+                price: "$45.000 COP",
+                img: "images/producto5.jpg",
+                description: `
+                    <p>Este adorable amigurumi es una pieza decorativa hecha con amor que aportará calidez y personalidad a cualquier espacio. Ideal para decoración infantil o regalo especial.</p>
+                    <p>Características:</p>
+                    <ul>
+                        <li>Material: Hilo de algodón hipoalergénico</li>
+                        <li>Dimensiones: 20 x 15 cm aproximadamente</li>
+                        <li>Personalizable en colores</li>
+                        <li>Tiempo de elaboración: 6 horas</li>
+                    </ul>
+                    <p>Al ser hecho a mano, cada amigurumi tiene un carácter único y especial.</p>
+                `
+            },
+            6: {
+                title: "Chaleco Tejido",
+                price: "$120.000 COP",
+                img: "images/producto6.jpg",
+                description: `
+                    <p>Este chaleco tejido a mano combina tradición artesanal con diseño contemporáneo. Una prenda versátil que se adapta a diferentes estilos y ocasiones.</p>
+                    <p>Características:</p>
+                    <ul>
+                        <li>Material: Hilo de algodón y lana premium</li>
+                        <li>Tallas disponibles: S, M, L, XL</li>
+                        <li>Varios patrones disponibles</li>
+                        <li>Tiempo de elaboración: 18 horas</li>
+                    </ul>
+                    <p>Elaborado con técnicas tradicionales transmitidas de generación en generación.</p>
+                `
+            }
+        };
+        
+        // Open modal when clicking on product card
+        productCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const productId = card.getAttribute('data-product');
+                const product = products[productId];
+                
+                modalImg.src = product.img;
+                modalImg.alt = product.title;
+                modalTitle.textContent = product.title;
+                modalPrice.textContent = product.price;
+                modalDescription.innerHTML = product.description;
+                
+                modal.style.display = 'flex';
+            });
+        });
+        
+        // Close modal
+        modalClose.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
